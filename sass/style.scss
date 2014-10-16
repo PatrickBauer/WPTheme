@@ -8,5 +8,22 @@ Version: 1.0
 */
 
 @import "../assets/vendor/normalize-scss/normalize";
+@import "susy";
+
+#page {
+  @include container(940px)
+}
+
+#content {
+  @include container();
+
+  #primary {
+    @include span(8 of 12);
+  }
+
+  #secondary {
+    @include span(4 of 12 last);
+  }
+}
 
 

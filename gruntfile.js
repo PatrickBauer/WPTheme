@@ -3,7 +3,8 @@ module.exports = function(grunt) {
     grunt.initConfig({
         sass: {
             options: {
-                style: 'expanded'
+                style: 'expanded',
+                require: ['susy']
             },
             build: {
                 src: 'sass/style.scss',
@@ -15,7 +16,8 @@ module.exports = function(grunt) {
                 files: ['sass/**/*.scss'],
                 tasks: ['sass'],
                 options: {
-                    spawn: false
+                    spawn: false,
+                    atBegin: true
                 }
             }
         }
