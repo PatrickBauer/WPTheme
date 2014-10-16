@@ -1,0 +1,21 @@
+{
+  "name": "WPTheme",
+  "version": "0.0.0",
+  "homepage": "https://github.com/PatrickBauer/WPTheme",
+  "authors": [
+    "Patrick Bauer <patrick.jean.bauer@googlemail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "normalize-scss": "~3.0.1"
+  }
+}
