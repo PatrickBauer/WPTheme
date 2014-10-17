@@ -7,8 +7,24 @@ Description: Default Reset base theme to kickstart development
 Version: 1.0
 */
 
-@import "../assets/vendor/normalize-scss/normalize";
+@import "../vendor/normalize-scss/normalize";
 @import "susy";
+@import "mixins";
+@import "sprite";
+
+$susy: (
+        global-box-sizing: content-box
+);
+
+
+html {
+  box-sizing: border-box;
+  min-height: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 
 #page {
   @include container(940px)

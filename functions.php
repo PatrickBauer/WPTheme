@@ -63,10 +63,45 @@ add_action( 'widgets_init', 'base_widgets_init' );
  * Enqueue scripts and styles.
  */
 function base_scripts() {
+	//wp_enqueue_style( 'font-russo', '//fonts.googleapis.com/css?family=Droid+Sans' );
 	wp_enqueue_style( 'base-style', get_stylesheet_uri() );
+
+	wp_enqueue_script( 'javascript-combined', get_stylesheet_directory_uri() . '/assets/javascript/script.js', array(), false, true );
 }
 add_action( 'wp_enqueue_scripts', 'base_scripts' );
 
+
+/**
+ * Filters wp_title to print a neat <title> tag based on what is being viewed.
+ *
+ * @param string $title Default title text for current view.
+ * @param string $sep Optional separator.
+ * @return string The filtered title.
+ */
+function theme_name_wp_title( $title, $sep ) {
+	if ( is_feed() ) {
+		return $title;
+	}
+
+	global $page, $paged;
+
+	// Add the blog name
+	$title .= get_bloginfo( 'name', 'display' );
+
+	// Add the blog description for the home/front page.
+	$site_description = get_bloginfo( 'description', 'display' );
+	if ( $site_description && ( is_home() || is_front_page() ) ) {
+		$title .= " $sep $site_description";
+	}
+
+	// Add a page number if necessary:
+	if ( ( $paged >= 2 || $page >= 2 ) && ! is_404() ) {
+		$title .= " $sep " . sprintf( __( 'Page %s', '_s' ), max( $paged, $page ) );
+	}
+
+	return $title;
+}
+add_filter( 'wp_title', 'theme_name_wp_title', 10, 2 );
 
 /**
  * Custom template tags for this theme.
