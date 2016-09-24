@@ -1,45 +1,24 @@
-/*
-Theme Name: Reset base theme
+/*!
+Theme Name: WPTheme Reset
 
 Author: Patrick Bauer
 Author URI: http://patrick-bauer.de/
 Description: Default Reset base theme to kickstart development
 Version: 1.0
 */
-
-@import "../vendor/normalize-scss/normalize";
-@import "susy";
+@import "../vendor/normalize-scss/_normalize.scss";
 @import "mixins";
-@import "sprite";
-
-$susy: (
-        global-box-sizing: content-box
-);
-
 
 html {
-  box-sizing: border-box;
-  min-height: 100%;
+    box-sizing: border-box;
+    min-height: 100%;
 }
 
 *, *:before, *:after {
-  box-sizing: inherit;
-}
-
-#page {
-  @include container(940px)
-}
-
-#content {
-  @include container();
-
-  #primary {
-    @include span(8 of 12);
-  }
-
-  #secondary {
-    @include span(4 of 12 last);
-  }
+    box-sizing: inherit;
 }
 
 
+.site-title {
+    display: none;
+}

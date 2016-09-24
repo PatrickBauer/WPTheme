@@ -1,20 +1,19 @@
-module.exports = function(grunt) {
-    // Project configuration.
+module.exports = function (grunt) {
     grunt.initConfig({
         sass: {
             options: {
-                style: 'expanded',
-                require: ['susy']
+                sourceMap: true
             },
             style: {
-                src: 'assets/sass/style.scss',
-                dest: 'style.css'
+                files: {
+                    'style.css': 'assets/sass/style.scss'
+                }
             }
         },
         watch: {
             style: {
                 files: ['assets/sass/**/*.scss'],
-                tasks: ['sass', 'autoprefixer'],
+                tasks: ['sass', 'autoprefixer', 'cssmin'],
                 options: {
                     spawn: false,
                     atBegin: true
@@ -22,28 +21,11 @@ module.exports = function(grunt) {
             },
             scripts: {
                 files: ['assets/javascript/**/*.js'],
-                tasks: ['concat'],
+                tasks: ['uglify'],
                 options: {
                     spawn: false,
                     atBegin: true
                 }
-            },
-            icons: {
-                files: ['assets/icons/single/*.png'],
-                tasks: ['sprite'],
-                options: {
-                    spawn: false,
-                    atBegin: true
-                }
-            }
-        },
-        sprite:{
-            all: {
-                src: 'assets/icons/single/*.png',
-                destImg: 'assets/icons/spritesheet.png',
-                imgPath: 'assets/icons/spritesheet.png',
-                destCSS: 'assets/sass/_sprite.scss',
-                cssFormat: 'scss'
             }
         },
         autoprefixer: {
@@ -51,20 +33,28 @@ module.exports = function(grunt) {
                 src: 'style.css'
             }
         },
-        concat: {
-            javascript: {
-                src: ['assets/vendor/jquery/dist/jquery.js', 'assets/javascript/plugins/*.js', 'assets/javascript/custom/*.js'],
-                dest: 'assets/javascript/script.js'
+        uglify: {
+            style: {
+                files: {
+                    'script.js': ['assets/vendor/jquery/dist/jquery.js', 'assets/javascript/plugins/*.js', 'assets/javascript/custom/*.js']
+                }
+            }
+        },
+        cssmin: {
+            options: {},
+            target: {
+                files: {
+                    'style.css': ['style.css']
+                }
             }
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-autoprefixer');
-    grunt.loadNpmTasks('grunt-spritesmith');
-    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-    grunt.registerTask('default', ['sass']);
-
+    grunt.registerTask('default', ['sass', 'autoprefixer', 'uglify', 'cssmin']);
 };
